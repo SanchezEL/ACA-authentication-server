@@ -12,6 +12,16 @@ function isAuthenticated(req, res, next) {
   return next()
 }
 
+router.put('/user', isAuthenticated, (req,res) =>{
+  AuthController.UpdateUser(req.user, req.body.userName)
+    .then(() => res.send('user updated'))
+})
+
+router.put('/Password', isAuthenticated, (req,res) =>{
+  AuthController.UpdatePassword(req.user, req.body.password)
+    .then(() => res.send('password updated'))
+})
+
 router.post('/signup', (req, res) => {
   AuthController.SignUp(req.body)
     .then(() => res.send('User created successfully'))
